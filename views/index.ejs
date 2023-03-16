@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="fr">
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+</head>
+<body>
+<div class="jumbotron" style="height: 100vh; margin: 0; padding: 1em; display: flex; flex-direction: column; justify-content: center">
+    <div style="height: 30vh; display: flex; flex-direction: column; justify-content: end">
+        <h1 class="text-center">Bienvenue à <span class="text-info"><%=title%>></span></h1>
+        <h2 class="text-center">Le carrefour des Savoies pour tous vos carburants</h2>
+    </div>
+
+    <div style="display: flex; justify-content: space-evenly; padding: 5em 20em 0;">
+        <a href="/register" class="btn btn-primary btn-lg" style="padding: 2em">Effectuer un paiement</a>
+        <a href="/pump" class="btn btn-primary btn-lg" style="padding: 2em">Pomper du carburant</a>
+    </div>
+</div>
+</body>
 </html>
