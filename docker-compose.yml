@@ -2,11 +2,17 @@ version: '2'
 
 services:
 
+ python:
+  image: python:3
+  volumes:
+  - ./python:/usr/src/app
+  working_dir: /usr/src/app
+  command: python3 main.py
 
 
  db:
   image: mysql:8.0
-  command: --default-authentication-plugin=mysql_native_password
+  command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
   environment:
    MYSQL_ROOT_PASSWORD: R!OT
    MYSQL_DATABASE: INFO801
@@ -20,14 +26,12 @@ services:
    - 3306/tcp
    - 3306/udp
 
- adminer:
+ admin:
   image: adminer:latest
+  restart: always
   environment:
    PMA_ARBITRARY: 1
    PMA_HOST: db
    UPLOAD_LIMIT: 20M
   ports:
-   - 8080:80
-  expose:
-    - 80/tcp
-    - 80/udp
+   - 8080:8080
