@@ -2,36 +2,41 @@ version: '2'
 
 services:
 
- python:
-  image: python:3
-  volumes:
-  - ./python:/usr/src/app
-  working_dir: /usr/src/app
-  command: python3 main.py
+  python:
+    image: python:3
+    # entrypoint: /usr/local/bin/python3
+    volumes:
+      - ./python:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - 5000:5000
+    expose:
+      - 5000/tcp
+      - 5000/udp
+    command: bash -c "pip3 install --no-cache-dir --upgrade pip flask flask_restful && python3 -m flask run --host=0.0.0.0"
 
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: R!OT
+      MYSQL_DATABASE: INFO801
+      MYSQL_USER: user
+      MYSQL_PASSWORD: R!OT
+    volumes:
+    - ./SQL:/var/lib/mysql
+    ports:
+    - 3306:3306
+    expose:
+    - 3306/tcp
+    - 3306/udp
 
- db:
-  image: mysql:8.0
-  command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
-  environment:
-   MYSQL_ROOT_PASSWORD: R!OT
-   MYSQL_DATABASE: INFO801
-   MYSQL_USER: user
-   MYSQL_PASSWORD: R!OT
-  volumes:
-   - ./SQL:/var/lib/mysql
-  ports:
-   - 3306:3306
-  expose:
-   - 3306/tcp
-   - 3306/udp
-
- admin:
-  image: adminer:latest
-  restart: always
-  environment:
-   PMA_ARBITRARY: 1
-   PMA_HOST: db
-   UPLOAD_LIMIT: 20M
-  ports:
-   - 8080:8080
+  admin:
+    image: adminer:latest
+    restart: always
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      UPLOAD_LIMIT: 20M
+    ports:
+    - 8080:8080
