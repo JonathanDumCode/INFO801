@@ -1,0 +1,16 @@
+.title {
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5em;
+}
+
+.button {
+    padding: 2em;
+}

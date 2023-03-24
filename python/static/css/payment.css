@@ -1,0 +1,16 @@
+form {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em 2em;
+}
+
+.span-columns {
+    grid-column: 1 / -1;
+}
+
+.fuels {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}

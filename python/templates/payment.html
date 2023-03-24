@@ -1,20 +1,83 @@
+<!--suppress HtmlUnknownTarget -->
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>payment</title>
-    <script src="../static/css/style.css"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>DDS | Station service des Alpes</title>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='../static/css/bootstrap.css'/>
+    <link rel='stylesheet' href='../static/css/common.css'/>
+    <link rel='stylesheet' href='../static/css/payment.css'/>
 </head>
 <body>
-    <form>
-        <input type="test" id="test_ID" name="test" placeholder="test" required><br><br>
-        <button id="submit">submit</button>
-      </form>
-      <script type="text/javascript" src="../static/js/payment.js"></script>
+<div class="jumbotron main">
+    <div class="jumbotron body">
+        <a href='/' class='return-button'><img src='/images/return.svg' alt='←'/> Retour à l'accueil</a>
 
+        <h1 class="text-center">Effectuer un paiement</h1>
+        <h4 class="text-center text-info"><em>Cette fonctionnalité est en cours de développement. Veuillez repasser plus tard.</em></h4>
 
+        <form action='/payment/action' method='post'>
+            <div class='span-columns fuels'>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP95" value="SP95">
+                    <label class="form-check-label" for="SP95">SP95</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP98" value="SP98">
+                    <label class="form-check-label" for="SP98">SP98</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP95-E10" value="SP95-E10">
+                    <label class="form-check-label" for="SP95-E10">SP95-E10</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Gazole" value="Gazole">
+                    <label class="form-check-label" for="Gazole">Gazole</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="E85" value="E85">
+                    <label class="form-check-label" for="E85">E85</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="GPL" value="GPL">
+                    <label class="form-check-label" for="GPL">GPL</label>
+                </div>
+
+            </div>
+
+            <div>
+                <label for='amount' class='form-label'>Montant</label>
+                <input
+                        id='amount'
+                        type='number'
+                        name='amount'
+                        placeholder='Minimum 50€'
+                        class='form-control'
+                />
+            </div>
+
+            <div>
+                <label for='volume' class='form-label'>Quantité</label>
+                <input
+                        id='volume'
+                        type='number'
+                        name='volume'
+                        class='form-control'
+                        readonly
+                />
+            </div>
+
+            <input
+                    type='submit'
+                    value='Valider le paiement'
+                    class='btn btn-primary span-columns'
+                    style='margin: 0 10em;'
+            />
+        </form>
+    </div>
+    <footer>
+        © DDS | Station service des Alpes 2023, tous droits réservés
+    </footer>
+</div>
 </body>
 </html>

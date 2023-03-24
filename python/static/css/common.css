@@ -1,0 +1,48 @@
+.main {
+    --background: rgba(221, 218, 217, 0.5);
+    height: 100vh;
+    margin: 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(var(--background), var(--background)), url('/image/home_background.jpg');
+    background-size: cover;
+}
+
+.body {
+    background-color: rgba(236, 240, 241, 0.75);
+    width: fit-content;
+    padding: 5em;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        margin-top: 20%;
+    }
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+
+.return-button {
+    position: relative;
+    top: -4em;
+    left: -4em;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.return-button img {
+    height: 0.8em;
+    margin-right: 0.2em;
+    filter: invert(77%) sepia(6%) saturate(4247%) hue-rotate(116deg) brightness(89%) contrast(81%);
+}
