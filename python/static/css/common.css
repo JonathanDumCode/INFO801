@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(var(--background), var(--background)), url('/image/home_background.jpg');
+    background: linear-gradient(var(--background), var(--background)), url('../img/home_background.jpg');
     background-size: cover;
 }
 
