@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel='stylesheet' href='../static/css/bootstrap.css'/>
     <link rel='stylesheet' href='../static/css/common.css'/>
+    <link rel='stylesheet' href='../static/css/form.css'/>
 </head>
 <body>
 <div class="jumbotron main">
@@ -13,7 +14,122 @@
         <a href='/' class='return-button'><img src='/images/return.svg' alt='←'/> Retour à l'accueil</a>
 
         <h1 class="text-center">Pomper du carburant</h1>
-        <h4 class="text-center text-info"><em>Cette fonctionnalité est en cours de développement. Merci de repasser plus tard.</em></h4>
+        <h4 class="text-center text-info"><em>Cette fonctionnalité est en cours de développement. Merci de repasser plus
+            tard.</em></h4>
+
+        <form action='/pump/action' method='post'>
+            <div>
+                <label for='code' class='form-label'>Code</label>
+                <input
+                        id='code'
+                        type='text'
+                        name='code'
+                        placeholder='Veuillez saisir votre code carburant'
+                        class='form-control'
+                />
+            </div>
+
+            <div style='display: flex; align-items: flex-end'>
+                <input
+                        type='submit'
+                        value='Appliquer le code'
+                        class='btn btn-info'
+                        style='width: 100%; height: fit-content;'
+                />
+            </div>
+
+            <hr class='span-columns' style='width: 100%; border-top-color: #353839' />
+
+            <div class='span-columns fuels'>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP95" value="SP95"
+                           checked disabled>
+                    <label class="form-check-label" for="SP95">SP95</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP98" value="SP98"
+                           disabled>
+                    <label class="form-check-label" for="SP98">SP98</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP95-E10"
+                           value="SP95-E10" disabled>
+                    <label class="form-check-label" for="SP95-E10">SP95-E10</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Gazole" value="Gazole"
+                           disabled>
+                    <label class="form-check-label" for="Gazole">Gazole</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="E85" value="E85"
+                           disabled>
+                    <label class="form-check-label" for="E85">E85</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="GPL" value="GPL"
+                           disabled>
+                    <label class="form-check-label" for="GPL">GPL</label>
+                </div>
+            </div>
+
+            <div>
+                <label for='amount' class='form-label'>Montant</label>
+                <input
+                        id='amount'
+                        type='number'
+                        name='amount'
+                        class='form-control'
+                        readonly
+                />
+            </div>
+
+            <div>
+                <label for='volume' class='form-label'>Quantité</label>
+                <input
+                        id='volume'
+                        type='number'
+                        name='volume'
+                        class='form-control'
+                        readonly
+                />
+            </div>
+
+            <hr class='span-columns' style='width: 100%; border-top-color: #353839' />
+
+            <div>
+                <label for='tank-size' class='form-label'>Remplissage du réservoir</label>
+                <input
+                        id='tank-size'
+                        type='number'
+                        name='tank-size'
+                        min="0"
+                        max="100"
+                        placeholder='%'
+                        class='form-control'
+                />
+            </div>
+
+            <div>
+                <label for='remaining' class='form-label'>Crédit restant</label>
+                <input
+                        id='remaining'
+                        type='number'
+                        name='remaining'
+                        min="0"
+                        placeholder='€'
+                        class='form-control'
+                        readonly
+                />
+            </div>
+
+            <input
+                    type='submit'
+                    value='Faire le plein'
+                    class='btn btn-primary span-columns'
+                    style='margin: 0 10em;'
+            />
+        </form>
     </div>
     <footer>
         © DDS | Station service des Alpes 2023, tous droits réservés
