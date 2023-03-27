@@ -90,53 +90,7 @@
         }
         refresh();
     }
-    function request(url, callback) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url);
-        xhr.send();
-        xhr.responseType = "json";
-        xhr.onload = () => {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                const data = xhr.response;
-                callback(data);
-            } else {
-                console.log(`Error: ${xhr.status}`);
-            }
-        };
-    }
-
-    function refresh(){
-        let carburant = ""
-        if(document.getElementById("SP95").checked){
-            carburant = "SP95"
-        }else if(document.getElementById("SP98").checked){
-            carburant = "SP98"
-        }else if(document.getElementById("SP95-E10").checked){
-            carburant = "SP95-E10"
-        }else if(document.getElementById("Gazole").checked){
-            carburant = "Gazole"
-        }else if(document.getElementById("E85").checked){
-            carburant = "E85"
-        }else if(document.getElementById("GPL").checked){
-            carburant = "GPL"
-        }
-
-
-        request('/payment/prediction?amount='+document.getElementById("amount").value+"&carburant="+carburant, (data)=>{
-            document.getElementById("volume").value = data.value;
-        })
-        
-    }
-
-    document.addEventListener("keyup", function (event) {
-        refresh()
-
-    });
-    document.addEventListener("click", function (event) {
-        refresh()
-
-    });
-
+    
     
 </script>
 </html>
