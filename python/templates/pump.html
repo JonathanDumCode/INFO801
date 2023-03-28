@@ -104,13 +104,24 @@
                         type='number'
                         name='tank-size'
                         min="0"
-                        max="100"
-                        placeholder='%'
+                        placeholder='L'
                         class='form-control'
                 />
             </div>
 
             <div>
+                <label for='tank-capacity' class='form-label'>Capacité max du réservoir</label>
+                <input
+                        id='tank-capacity'
+                        type='number'
+                        name='tank-capacity'
+                        min="8"
+                        placeholder='L'
+                        class='form-control'
+                />
+            </div>
+
+            <div class="span-columns">
                 <label for='remaining' class='form-label'>Crédit restant</label>
                 <input
                         id='remaining'
