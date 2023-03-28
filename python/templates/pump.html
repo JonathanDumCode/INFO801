@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='../static/css/common.css'/>
     <link rel='stylesheet' href='../static/css/form.css'/>
 </head>
-<body>
+<body onload="start()">
 <div class="jumbotron main">
     <div class="jumbotron body">
         <a href='/' class='return-button'><img src='/images/return.svg' alt='←'/> Retour à l'accueil</a>
@@ -43,7 +43,7 @@
             <div class='span-columns fuels'>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SP95" value="SP95"
-                           checked disabled>
+                            disabled>
                     <label class="form-check-label" for="SP95">SP95</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -147,4 +147,45 @@
     </footer>
 </div>
 </body>
+<script>
+    function start(){
+        let code = '{{ code }}'.split("&#34;").join('"');
+        if(code != ''){
+            code = JSON.parse(code);
+            document.getElementById('code').value = code.token;
+            document.getElementById('amount').value = code.amount;
+            document.getElementById(code.carburant).checked = true;
+
+            request('/payment/prediction?amount='+code.amount+"&carburant="+code.carburant, (data)=>{
+                document.getElementById("volume").value = data.value;
+            })
+        }
+
+        let msg = '{{ msg }}';
+        if(msg != ''){
+            alert(msg);
+        }
+
+        
+    function request(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const data = xhr.response;
+                callback(data);
+            } else {
+                console.log(`Error: ${xhr.status}`);
+            }
+        };
+    }
+
+    function refresh(){
+        
+        
+    }
+    }
+</script>
 </html>
