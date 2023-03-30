@@ -98,18 +98,19 @@
             <hr class='span-columns' style='width: 100%; border-top-color: #353839' />
 
             <div>
-                <label for='tank-size' class='form-label'>Remplissage du réservoir</label>
+                <label for='tank-size' class='form-label'>Combien de Litre</label>
                 <input
                         id='tank-size'
                         type='number'
                         name='tank-size'
+                        value="0"
                         min="0"
                         placeholder='L'
                         class='form-control'
                 />
             </div>
 
-            <div>
+            <!-- <div>
                 <label for='tank-capacity' class='form-label'>Capacité max du réservoir</label>
                 <input
                         id='tank-capacity'
@@ -119,9 +120,9 @@
                         placeholder='L'
                         class='form-control'
                 />
-            </div>
+            </div> -->
 
-            <div class="span-columns">
+            <div>
                 <label for='remaining' class='form-label'>Crédit restant</label>
                 <input
                         id='remaining'
@@ -166,7 +167,10 @@
             alert(msg);
         }
 
+        refresh();
         
+    
+    }
     function request(url, callback) {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", url);
@@ -183,9 +187,22 @@
     }
 
     function refresh(){
-        
+        if(document.getElementById('volume').value != ''){
+            request('/pump/prediction?amount='+document.getElementById("tank-size").value+"&code="+document.getElementById("code").value, (data)=>{
+            document.getElementById("remaining").value = data.value;
+        })
+
+        }
         
     }
-    }
+
+    document.addEventListener("keyup", function (event) {
+        refresh()
+
+    });
+    document.addEventListener("click", function (event) {
+        refresh()
+
+    });
 </script>
 </html>

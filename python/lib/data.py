@@ -17,7 +17,7 @@ class data():
             "Gazole": 1.3,
             "GPL": 0.8
         }
-        self.coupon_ls = [{"amount":"50","carburant":"SP95","token":"RNHLE"}]
+        self.coupon_ls = []
 
     def getCarburantPrice(self,carburant):
         return self.carburantPrice[carburant]
@@ -45,3 +45,21 @@ class data():
         coupon = {"token": token, "amount": amount, "carburant": carburant}
         self.coupon_ls.append(coupon)
         return token
+    
+    def bebitCoupon(self,token,amount):
+        for i in range(len(self.coupon_ls)):
+            if (self.coupon_ls[i]['token'] == token):
+                self.coupon_ls[i]['amount'] = str(float(self.coupon_ls[i]['amount']) - amount)
+        return True
+    
+    def getCarburant(self,token):
+        for i in range(len(self.coupon_ls)):
+            if (self.coupon_ls[i]['token'] == token):
+                return self.coupon_ls[i]['carburant']
+        return -1
+    
+    def getBudget(self,token):
+        for i in range(len(self.coupon_ls)):
+            if (self.coupon_ls[i]['token'] == token):
+                return self.coupon_ls[i]['amount']
+        return -1

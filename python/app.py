@@ -83,15 +83,32 @@ def pump_action():
         code = request.form.get('code')
         valide = Pump.verificationCode(code)
         if valide:
+            nblitre = request.form.get('tank-size')
+            pumpOk = False
+            if(nblitre != ''):
+                pumpOk = Pump.pumpGas(nblitre,code)
+            
             coupon = Pump.getCode(code)
             res = '{ "token": "' + coupon['token'] + '", "amount": "' + coupon['amount'] + '", "carburant": "' + coupon['carburant'] + '"}'
-            return render_template('pump.html',code=res, msg='Code valide')
+            if nblitre != '':
+                if pumpOk:
+                    return render_template('pump.html',code=res, msg='Carburant pompé')
+                else:
+                    return render_template('pump.html',code=res, msg='Crédit insuffisant')
+            else:
+                return render_template('pump.html',code=res, msg='Code valide')
         else:
             return render_template('pump.html',code='', msg='Code Invalide')
 
         
     return render_template('pump.html',code='', msg='Code Error')
 
+@app.route('/pump/prediction')
+def pump_prediction():
+    amount = request.args.get('amount')  
+    code = request.args.get('code')
+    value = Pump.predictionCarburant(amount,code)
+    return jsonify(value=value)
 
 if __name__ == '__main__':
     app.run(debug=True)
