@@ -1,3 +1,3 @@
-/SQL/*
-python/*pycache*/*
-python/lib/*pycache*/*
+*/SQL/*
+*/python/*pycache*/*
+*/python/lib/*pycache*/*
