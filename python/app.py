@@ -90,7 +90,7 @@ def pump_action():
             
             coupon = Pump.getCode(code)
             res = '{ "token": "' + coupon['token'] + '", "amount": "' + coupon['amount'] + '", "carburant": "' + coupon['carburant'] + '"}'
-            if nblitre != '':
+            if nblitre != '' and nblitre != None and nblitre != 'None' and nblitre != '0' and nblitre != 0 and nblitre != '0.0' and nblitre != 0.0:
                 if pumpOk:
                     return render_template('pump.html',code=res, msg='Carburant pompé')
                 else:
