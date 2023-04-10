@@ -1,1 +1,109 @@
-<h1>Hello World !</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/toggle-switch.css">
+    <link rel="stylesheet" href="./styles/clock.css">
+    <title>Thermostable</title>
+</head>
+<body>
+    <div class="title-card">
+        <div>
+            <h1 class="title">Thermostable</h1>
+            <h2 class="subtitle">La solution n°1 pour tous vos problèmes de chauffage</h2>
+        </div>
+        <div class="clock-container">
+            <div class="clock">
+                <div class="wrap">
+                    <span class="hour"></span>
+                    <span class="minute"></span>
+                    <span class="second"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="card">
+            <h3 class="segment-title">Température ambiante</h3>
+            <input class="segment-display" value="25°C" readonly />
+        </div>
+    
+        <div class="card">
+            <div class="light-title">
+                <h3 class="segment-title">Thermostat</h3>
+                <div class="status-light"></div>
+            </div>
+    
+            <input class="segment-display" id="temperature-display" value="5°C" />
+            
+            <input type="range" name="temperature" id="temperature" class="c-rng" min="5" max="32" step="1" data-range="circular">
+    
+            <div class="programmed">
+                <div class="toggle-title">    
+                    <h4>Mode programmé</h4>
+        
+                    <div class="toggle-switch">
+                        <label class="switch">
+                            <input type="checkbox" />
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+    
+                <input type="time" name="start" id="start" />
+                <input type="time" name="end" id="end" />
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="light-title">
+                <h3>Chaudière</h3>
+                <div class="status-light"></div>
+            </div>
+    
+            <div class="toggle-title">    
+                <h4>Désactiver la chaudière</h4>
+        
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        INFO801 • TP n°2 • DORNEL Loïc, DUMONT Jonathan, SHARABIDZE Tamar
+    </footer>
+    <script>
+        let inc = 1000;
+
+clock();
+
+function clock() {
+    const date = new Date();
+
+    const hours = ((date.getHours() + 11) % 12 + 1);
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const hour = hours * 30;
+    const minute = minutes * 6;
+    const second = seconds * 6;
+
+    document.querySelector('.hour').style.transform = `rotate(${hour}deg)`;
+    document.querySelector('.minute').style.transform = `rotate(${minute}deg)`;
+    document.querySelector('.second').style.transform = `rotate(${second}deg)`;
+}
+
+setInterval(clock, inc);
+    </script>
+</body>
+</html>

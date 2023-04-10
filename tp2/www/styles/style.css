@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(120deg, #353839, #4A5156, #656A76);
+}
+
+.title-card {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.title-card > div {
+    text-align: center;
+    color: white;
+}
+
+.title-card > div h1, .title-card > div h2 {
+    font-variant: small-caps;
+}
+
+main {
+    width: 100%;
+    height: 55vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card {
+    width: 30vw;
+    height: 40vh;
+    background-color: #878294;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
+
+h3 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.light-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.toggle-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-light {
+    margin: 0 1em;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.75em;
+    background-color: green;
+    box-shadow: 0 0 10px 0 #00A600;
+}
+
+.status-light.error {
+    background-color: darkred;
+    box-shadow: 0 0 10px 0 #B00000;
+}
+
+.status-light.off {
+    background-color: #4A5156;
+    box-shadow: inset 0 0 5px 2px #43494D;
+}
+
+footer {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0.5em;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 25%, transparent);
+    color: white;
+}

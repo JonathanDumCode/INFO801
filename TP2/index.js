@@ -1,6 +1,6 @@
 //Importation des modules
 const express = require('express');
-
+const path = require('path');
 
 //import des modules
 const Environement = require('./modules/environement');
@@ -20,19 +20,20 @@ let controleur = new Controleur(capteur, chaudiere);
 const app = express();
 
 app.use(express.static('www'));
+app.use(express.json());
 
 //Définition des constantes
-const PORT = 3000;
+const PORT = 8080;
 
 //Définition des routes
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/www/index.html');
+    res.sendFile(path.join(__dirname, '/www/index.html'));
 });
 
 
 //lancement de l'application
 app.listen(PORT, () => {
-    console.log(`Example app listening at http://127.0.0.1:${PORT}`);
+    console.log(`Example app listening at http://localhost:${PORT}`);
 });
 
 //lancement de la couroutine
