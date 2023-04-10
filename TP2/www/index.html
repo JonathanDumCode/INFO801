@@ -30,7 +30,9 @@
     <main>
         <div class="card">
             <h3 class="segment-title">Température ambiante</h3>
-            <input class="segment-display" value="25°C" readonly />
+            <div class="card-body">
+                <input class="segment-display" value="25°C" readonly />
+            </div>
         </div>
     
         <div class="card">
@@ -38,26 +40,38 @@
                 <h3 class="segment-title">Thermostat</h3>
                 <div class="status-light"></div>
             </div>
-    
-            <input class="segment-display" id="temperature-display" value="5°C" />
-            
-            <input type="range" name="temperature" id="temperature" class="c-rng" min="5" max="32" step="1" data-range="circular">
-    
-            <div class="programmed">
-                <div class="toggle-title">    
-                    <h4>Mode programmé</h4>
+
+            <div class="card-body dual-columns">
+                <div class="column regulated">
+                    <h4>Régulé</h4>
+
+                    <input class="segment-display" id="temperature-display" value="21°C" type="text" readonly />
+                    
+                    <input type="range" name="temperature" id="temperature" min="5" max="32" step="1" value="21">
+                </div>
         
+                <div class="column programmed">
+                    <h4>Programmé</h4>
+
                     <div class="toggle-switch">
                         <label class="switch">
                             <input type="checkbox" />
                             <span class="slider round"></span>
                         </label>
                     </div>
+        
+                    <div class="time">
+                        <label for="start">Heure de début</label>
+                        <input class="time-input" type="time" name="start" id="start" />
+                    </div>
+
+                    <div class="time">
+                        <label for="end">Heure de fin</label>
+                        <input class="time-input" type="time" name="end" id="end" />
+                    </div>
                 </div>
-    
-                <input type="time" name="start" id="start" />
-                <input type="time" name="end" id="end" />
             </div>
+    
         </div>
     
         <div class="card">
@@ -83,27 +97,37 @@
         INFO801 • TP n°2 • DORNEL Loïc, DUMONT Jonathan, SHARABIDZE Tamar
     </footer>
     <script>
+        const slider = document.getElementById("temperature");
+        const display = document.getElementById("temperature-display");
+
+        display.value = `${slider.value}°C`;
+
+        slider.oninput = () => {
+            display.value = this.value;
+        }
+    </script>
+    <script>
         let inc = 1000;
+        
+        clock();
 
-clock();
+        function clock() {
+            const date = new Date();
 
-function clock() {
-    const date = new Date();
+            const hours = ((date.getHours() + 11) % 12 + 1);
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
 
-    const hours = ((date.getHours() + 11) % 12 + 1);
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+            const hour = hours * 30;
+            const minute = minutes * 6;
+            const second = seconds * 6;
 
-    const hour = hours * 30;
-    const minute = minutes * 6;
-    const second = seconds * 6;
+            document.querySelector('.hour').style.transform = `rotate(${hour}deg)`;
+            document.querySelector('.minute').style.transform = `rotate(${minute}deg)`;
+            document.querySelector('.second').style.transform = `rotate(${second}deg)`;
+        }
 
-    document.querySelector('.hour').style.transform = `rotate(${hour}deg)`;
-    document.querySelector('.minute').style.transform = `rotate(${minute}deg)`;
-    document.querySelector('.second').style.transform = `rotate(${second}deg)`;
-}
-
-setInterval(clock, inc);
+        setInterval(clock, inc);
     </script>
 </body>
 </html>

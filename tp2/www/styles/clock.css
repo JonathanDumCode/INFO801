@@ -23,7 +23,7 @@
     height: 100px;
     width: 6px;
     margin: auto;
-    top: -27%;
+    top: -29%;
     left: 0;
     bottom: 0;
     right: 0;
@@ -46,10 +46,10 @@
 
 .second {
     position: absolute;
-    height: 90px;
+    height: 150px;
     width: 2px;
     margin: auto;
-    top: -26%;
+    top: -43%;
     left: 0;
     bottom: 0;
     right: 0;
@@ -71,7 +71,6 @@
     border-radius: 100px;
     background: white;
     border: 2px solid #1B1B1B;
-    border-radius: 100px;
     margin: auto;
     z-index: 1;
 }
