@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./styles/clock.css">
     <title>Thermostable</title>
 </head>
-<body>
+<body onload="setup()">
     <div class="title-card">
         <div>
             <h1 class="title">Thermostable</h1>
@@ -31,7 +31,7 @@
         <div class="card">
             <h3 class="segment-title">Température ambiante</h3>
             <div class="card-body">
-                <input class="segment-display" value="25°C" readonly />
+                <input class="segment-display" value="25°C" id="tempInt" readonly />
             </div>
         </div>
     
@@ -77,7 +77,7 @@
         <div class="card">
             <div class="light-title">
                 <h3>Chaudière</h3>
-                <div class="status-light"></div>
+                <div class="status-light" id="status-light"></div>
             </div>
     
             <div class="toggle-title">    
@@ -85,7 +85,7 @@
         
                 <div class="toggle-switch">
                     <label class="switch">
-                        <input type="checkbox" />
+                        <input type="checkbox" id="controlChaudiere" onclick="controle_chaudiere()"/>
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -97,14 +97,17 @@
         INFO801 • TP n°2 • DORNEL Loïc, DUMONT Jonathan, SHARABIDZE Tamar
     </footer>
     <script>
-        const slider = document.getElementById("temperature");
-        const display = document.getElementById("temperature-display");
+        function updateSlider() {
+            const slider = document.getElementById("temperature");
+            const display = document.getElementById("temperature-display");
 
-        display.value = `${slider.value}°C`;
+            display.value = `${slider.value}°C`;
 
-        slider.oninput = () => {
-            display.value = this.value;
+            request(IP+"/api/set/temp/"+slider.value, (data) => {
+                console.log("Set temperature to " + slider.value);
+            });
         }
+
     </script>
     <script>
         let inc = 1000;
@@ -131,3 +134,52 @@
     </script>
 </body>
 </html>
+
+<script>
+    const IP = "http://localhost:8080"
+
+    function request(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const data = xhr.response;
+                callback(data);
+            } else {
+                console.log(`Error: ${xhr.status}`);
+            }
+        };
+    }
+    function setup() {
+        
+        request(IP+"/api/chaudiere/Fstatus", (data) => {
+            document.getElementById("controlChaudiere").checked = !(data.status);
+        });
+        setInterval(update, 1000);
+    }
+
+    function controle_chaudiere() {
+        const ctr = document.getElementById("controlChaudiere");
+        request(IP+"/api/chaudiere/"+(ctr.checked ? "OFF" : "ON"), (data) => {
+            console.log("Chaudiere " + (ctr.checked ? "OFF" : "ON"));
+        });
+    }
+    function update() {
+        updateSlider();
+        request(IP+"/api/temp/cap", (data) => {
+            document.getElementById("tempInt").value = data.temperature + "°C";
+        });
+
+        request(IP+"/api/chaudiere/status", (data) => {
+            const light = document.getElementById("status-light");
+            const ctr = document.getElementById("controlChaudiere");
+            if (data.status) {
+                light.className = "status-light on";
+            } else {
+                light.className = "status-light off";
+            }
+        });
+    }
+</script>

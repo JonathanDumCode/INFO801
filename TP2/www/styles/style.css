@@ -124,6 +124,11 @@ h3 {
     width: 1.5em;
     height: 1.5em;
     border-radius: 0.75em;
+    background-color: white;
+    box-shadow: 0 0 10px 0 white;
+}
+
+.status-light.on {
     background-color: green;
     box-shadow: 0 0 10px 0 #00A600;
 }

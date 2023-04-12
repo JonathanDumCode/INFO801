@@ -12,4 +12,7 @@ module.exports = class Controleur {
             this.chaudiere.stop();
         }
     }
+    setTemperature(temp) {
+        this.temperatureCible = temp;
+    }
 }

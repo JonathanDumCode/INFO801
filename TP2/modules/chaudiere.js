@@ -2,6 +2,7 @@ module.exports = class Chaudiere {
     constructor(env) {
         this.temperature = 60;
         this.environement = env;
+        this.Fallume = true;
         this.allume = false;
     }
     update() {
@@ -10,11 +11,28 @@ module.exports = class Chaudiere {
         }
     }
     start() {
-        console.log("Chaudiere -> Allumé");
-        this.allume = true;
+        if (this.Fallume) {
+            console.log("Chaudiere -> Allumé");
+            this.allume = true;
+        }
     }
     stop() {
         console.log("Chaudiere -> Eteint");
         this.allume = false;
+    }
+
+    Fstart() {
+        this.Fallume = true;
+    }
+    Fstop() {
+        console.log("Chaudiere -> Eteint");
+        this.Fallume = false;
+        this.allume = false;
+    }
+    getStatus(){   
+        return this.allume;
+    }
+    getFStatus(){
+        return this.Fallume;
     }
 }

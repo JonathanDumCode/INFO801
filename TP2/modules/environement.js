@@ -16,4 +16,7 @@ module.exports = class Environement {
     heat(temp) {
         this.temperatureInt = this.calculerTemperature(this.temperatureInt,temp);
     }
+    getTemperature() {
+        return Math.floor(this.temperatureExt);
+    }
 }
