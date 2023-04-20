@@ -45,11 +45,11 @@ app.get('/api/chaudiere/Fstatus', (req, res) => {
     res.json({status: chaudiere.getFStatus()});
 });
 app.get('/api/chaudiere/ON', (req, res) => {
-    chaudiere.Fstart();
+    controleur.chaudiere_Fstart();
     res.json({status: "ok"});
 });
 app.get('/api/chaudiere/OFF', (req, res) => {
-    chaudiere.Fstop();
+    controleur.chaudiere_Fstop();
     res.json({status: "ok"});
 });
 
@@ -58,6 +58,26 @@ app.get('/api/set/temp/:temp', (req, res) => {
     controleur.setTemperature(req.params.temp);
     res.json({status: "ok"});
 });
+
+
+app.get('/api/controleur/programer', (req, res) => {
+    res.json({status: !controleur.estAutonome()});
+});
+
+app.get('/api/programer/ON', (req, res) => {
+    controleur.autonomeOn();
+    res.json({status: "ok"});
+});
+app.get('/api/programer/OFF', (req, res) => {
+    controleur.autonomeOff();
+    res.json({status: "ok"});
+});
+app.get('/api/horaire/:min/:max', (req, res) => {
+    controleur.setHoraire(req.params.min,req.params.max);
+    res.json({status: "ok"});
+});
+
+
 
 //lancement de l'application
 app.listen(PORT, () => {
@@ -69,4 +89,6 @@ setInterval(() => {
     chaudiere.update();
     environement.update();
     controleur.update();
+
+    console.log("Chaudiere: " + chaudiere.getStatus()+ " | Environement: " + environement.getTemperature() + " | Capteur: " + capteur.getTemperature());
 }, 1000);

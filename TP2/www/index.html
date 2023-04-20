@@ -38,7 +38,7 @@
         <div class="card">
             <div class="light-title">
                 <h3 class="segment-title">Thermostat</h3>
-                <div class="status-light"></div>
+                <div id="programer" class="status-light"></div>
             </div>
 
             <div class="card-body dual-columns">
@@ -55,19 +55,19 @@
 
                     <div class="toggle-switch">
                         <label class="switch">
-                            <input type="checkbox" />
+                            <input type="checkbox" id="programer-switch" onclick="controle_programer()"/>
                             <span class="slider round"></span>
                         </label>
                     </div>
         
                     <div class="time">
                         <label for="start">Heure de début</label>
-                        <input class="time-input" type="time" name="start" id="start" />
+                        <input class="time-input" type="time" name="start" id="start"/>
                     </div>
 
                     <div class="time">
                         <label for="end">Heure de fin</label>
-                        <input class="time-input" type="time" name="end" id="end" />
+                        <input class="time-input" type="time" name="end" id="end"/>
                     </div>
                 </div>
             </div>
@@ -153,6 +153,8 @@
         };
     }
     function setup() {
+        document.getElementById("start").value = "08:00";
+        document.getElementById("end").value = "18:00";
         
         request(IP+"/api/chaudiere/Fstatus", (data) => {
             document.getElementById("controlChaudiere").checked = !(data.status);
@@ -166,19 +168,43 @@
             console.log("Chaudiere " + (ctr.checked ? "OFF" : "ON"));
         });
     }
+
+    function controle_programer() {
+        const ctr = document.getElementById("programer-switch");
+        request(IP+"/api/programer/"+(ctr.checked ? "OFF" : "ON"), (data) => {
+            console.log("Programer " + (ctr.checked ? "ON" : "OFF"));
+        });
+        request(IP+"/api/horaire/"+document.getElementById("start").value+"/"+document.getElementById("end").value, (data) => {
+        });
+
+    }
     function update() {
         updateSlider();
         request(IP+"/api/temp/cap", (data) => {
             document.getElementById("tempInt").value = data.temperature + "°C";
         });
 
+        request(IP+"/api/controleur/programer", (data) => {
+            if (data.status) {
+                document.getElementById("programer").className = "status-light on";
+            } else {
+                document.getElementById("programer").className = "status-light off";
+            }
+        });
+
+
+
+
+
         request(IP+"/api/chaudiere/status", (data) => {
             const light = document.getElementById("status-light");
             const ctr = document.getElementById("controlChaudiere");
-            if (data.status) {
+            if (data.status == "ON") {
                 light.className = "status-light on";
-            } else {
+            } else if (data.status == "OFF"){
                 light.className = "status-light off";
+            }else{
+                light.className = "status-light error";
             }
         });
     }

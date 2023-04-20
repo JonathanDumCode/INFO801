@@ -10,8 +10,6 @@ module.exports = class Environement {
     update() {
         this.temperatureInt = this.calculerTemperature(this.temperatureInt,this.temperatureExt);
         this.capteur.setTemperature(this.temperatureInt);
-        console.log("Environement -> Temperature : " + this.temperatureInt);
-        console.log("Environement -> Temperature Ext : " + this.temperatureExt);
     }
     heat(temp) {
         this.temperatureInt = this.calculerTemperature(this.temperatureInt,temp);
