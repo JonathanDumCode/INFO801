@@ -1,0 +1,74 @@
+@startuml
+
+package Vue <<Cloud>> {
+annotation WEB {
+}
+
+}
+
+
+
+
+package "Composant / Modele-Controleur" <<Rectangle>>{
+
+class Environement{
+temperatureExt : Int
+temperatureInt : Int
+
+calculerTemperature(t1 : float, t2 : float) : float
+heat(temp : float) : void
+getTemperature() : Int
+}
+class Capteur{
+Temperature: Int
+setTemperature(temp : Int) : void
+getTemperature() : Int
+}
+class Chaudiere{
+Temperatur : Int
+Fallume : bool
+allume : bool
+demarage : bool
+error : bool
+
+start() : void
+stop() : void
+Fstart() : void
+Fstop() : void
+getStatus() : String
+getFStatus() : bool
+
+}
+class Controleur{
+temperatureCible : Int
+autonome : bool
+horaireMin : Array<Int>
+horaireMax : Array<Int>
+chaudiereShutdown : bool
+chaudiereError : bool
+chaudiereLancement : Int
+chaudiereCouldown : Int
+
+setTemperature(temp : Int) : void
+chaudiere_Fstart() : void
+chaudiere_Fstop() : void
+estAutonome() : bool
+autonomeOn() : void
+autonomeOff() : void
+setHoraire(min : String, max : String) : void
+}
+Environement -right-> Capteur
+Controleur -left-> Chaudiere
+
+Chaudiere -up-> Environement
+Controleur <-up- Capteur
+}
+WEB -right-> Controleur
+
+note bottom of Controleur : La classe Controleur représente un contrôleur\nqui est responsable de la régulation/controle\nde la température de la piece et de la chaudière.
+note top of Environement : La classe Environnement représente l'environnement\ndans lequel la température est régulée.
+note top of Capteur : La classe Capteur représente un capteur de température\ncapable de mesurer la température dans la pièce.
+note bottom of Chaudiere : La classe Chaudière représente une chaudière\nqui est responsable de chauffer la pièce.
+
+
+@enduml

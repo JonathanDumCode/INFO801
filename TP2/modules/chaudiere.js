@@ -1,6 +1,6 @@
 module.exports = class Chaudiere {
     constructor(env) {
-        this.temperature = 60;
+        this.temperature = 100;
         this.environement = env;
         this.Fallume = false;
         this.allume = false;
